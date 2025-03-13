@@ -1,0 +1,26 @@
+<div class="login-container">
+  <div class="form-container">
+    <h1>𝐅𝐋𝐎</h1>
+    <p>𝐃İ𝐉İ𝐓𝐀𝐋 𝐀𝐋𝐈Ş𝐕𝐄𝐑İŞ 𝐏𝐋𝐀𝐓𝐅𝐎𝐑𝐌𝐔</p>
+
+    <div class="input-container">
+      <input type="text" class="input-field" placeholder="Kullanıcı adı" [(ngModel)]="username" />
+      <input type="password" class="input-field" placeholder="Parola" [(ngModel)]="password" />
+    </div>
+
+    <button class="login-button" (click)="onLogin()">OTURUM AÇIN</button>
+
+    <!-- Hata mesajı burada gösterilecek -->
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <!-- Kayıt Ol butonu -->
+    <p class="signup-link">
+      Hesabınız yok mu?
+      <a routerLink="/create-user">Kayıt Ol</a>
+    </p>
+
+    <div class="bottom-logo">
+      FLO © 2025
+    </div>
+  </div>
+</div>

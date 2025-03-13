@@ -1,0 +1,122 @@
+/* Genel Konteyner */
+.create-user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #ffe4cc, #ffc299);
+  margin: 0;
+}
+
+/* Header */
+.header h1 {
+  font-size: 3rem;
+  color: #ff6600;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+/* Form Konteyneri */
+.form-container {
+  background: #ffffff;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Başlık */
+.form-container h1 {
+  font-size: 2.5rem;
+  color: #ff6600;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Giriş Alanları */
+.input-container {
+  margin-bottom: 1.5rem;
+}
+
+.input-field {
+  width: 90%;
+  max-width: 350px;
+  padding: 14px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 6px rgba(255, 102, 0, 0.5);
+  outline: none;
+}
+
+/* Buton */
+.submit-button {
+  width: 90%;
+  max-width: 350px;
+  padding: 14px;
+  background: #ff6600;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
+}
+
+.submit-button:disabled {
+  background: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #e55a00;
+  box-shadow: 0 6px 15px rgba(255, 102, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Giriş Yap Linki */
+.login-link {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #777;
+}
+
+.login-link a {
+  color: #ff6600;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Mobil Uyum */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-container h1 {
+    font-size: 2rem;
+  }
+
+  .submit-button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
