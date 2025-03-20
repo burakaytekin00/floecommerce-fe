@@ -1,0 +1,60 @@
+.add-category-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #FFA500, #FF6347); /* Turuncu tonları */
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  transform: scale(1); /* Başlangıçta normal boyut */
+}
+
+.add-category-button:hover {
+  transform: scale(1.1); /* Hover ile büyüme efekti */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.add-category-button .btn {
+  font-size: 16px;
+  padding: 15px 30px;
+  background-color: transparent;
+  border: 2px solid #FF6347;
+  color: #FFF;
+  font-weight: bold;
+  border-radius: 50px; /* Yuvarlak buton */
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.add-category-button .btn:hover {
+  background-color: #FF6347;
+  border-color: #FF4500; /* Turuncu tonlarında değişim */
+}
+
+.add-category-button .btn:focus {
+  outline: none;
+}
+
+/* Ejderha animasyonu ekleme */
+@keyframes dragonEffect {
+  0% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    transform: rotate(45deg) scale(1.2);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.add-category-button:hover {
+  animation: dragonEffect 1s infinite; /* Hover durumunda ejderha animasyonu */
+}

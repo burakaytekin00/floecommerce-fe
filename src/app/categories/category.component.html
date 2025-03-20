@@ -1,0 +1,28 @@
+<h2>Kategoriler</h2>
+
+<!-- Hata mesajı -->
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<!-- Kategori listesi -->
+<ul>
+  <li *ngFor="let category of categories">
+    {{ category.name }}
+  </li>
+</ul>
+
+<!-- Kategori ekleme butonu sağ üst köşede -->
+<div class="add-category-button">
+  <button (click)="addCategory()" class="btn btn-primary">Kategori Ekle</button>
+</div>
+
+<p-dialog [header]='"selam"' [(visible)]="displayDialog" [position]="'top'"
+        [style]="{ width: '450px' }" [draggable]="false" [modal]="true">
+        <div class="text-center mt-3">
+            <div>
+                TEST
+            </div>
+        </div>
+</p-dialog>
+

@@ -54,4 +54,7 @@ export class HomeComponent {
     console.log('Çıkış yapılıyor...');
     this.router.navigate(['/login']); // Login sayfasına yönlendiriyoruz
   }
+  goToCategories() {
+    this.router.navigate(['/categories']);  // '/categories' route'una yönlendir
+  }
 }
