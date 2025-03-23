@@ -1,22 +1,52 @@
-<!-- Sağ Üstte Kategori Ekle Butonu -->
-<div class="card">
-    <button type="button" class="btn btn-success position-absolute top-0 end-0 m-3" (click)="showDialog()">
-        <i class="pi pi-plus"></i> Kategori Ekle
-    </button>
+<p-toast></p-toast>
+
+<div class="row mt-2">
+    <div class="col-12 d-flex justify-content-end">
+        <button type="button" class="btn btn-success col-1" (click)="showDialog()">
+            <i class="pi pi-plus"></i> Kategori Ekle
+        </button>
+    </div>
 </div>
 
-<!-- Modal (p-dialog) -->
-<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" [closable]="true" header="Kategori Ekle">
+<div class="card mt-2">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>
+                    <button type="button" class="btn btn-link" (click)="editProduct(product)">
+                        <i class="pi pi-pencil"></i> Düzenle
+                    </button>
+                    <button type="button" class="btn btn-link text-danger" (click)="confirmDelete(product)">
+                        <i class="pi pi-trash"></i> Sil
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" [closable]="true" header="Kategori Düzenle">
     <div class="form-group">
         <label for="categoryName">Kategori Adı</label>
-        <input type="text" id="categoryName"  class="form-control" placeholder="Kategori adını girin" />
+        <input type="text" id="categoryName" class="form-control" [(ngModel)]="categoryName" />
     </div>
     <div class="form-group">
         <label for="categoryDescription">Kategori Açıklaması</label>
-        <textarea id="categoryDescription"  class="form-control" placeholder="Kategori açıklamasını girin"></textarea>
+        <textarea id="categoryDescription" class="form-control" [(ngModel)]="categoryDescription"></textarea>
     </div>
-    <ng-template #footer>
+    <ng-template pTemplate="footer">
         <button type="button" class="btn btn-secondary" (click)="visible = false">Kapat</button>
-        <button type="button" class="btn btn-primary" >Kaydet</button>
+        <button type="button" class="btn btn-primary" (click)="selectedProduct ? updateCategory() : saveCategory()">Kaydet</button>
     </ng-template>
 </p-dialog>
+
+<p-confirmDialog header="Onay" icon="pi pi-exclamation-triangle" acceptLabel="Evet" rejectLabel="Hayır"></p-confirmDialog>
