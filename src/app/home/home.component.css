@@ -215,39 +215,3 @@
     width: 100px;
   }
 }
-/* Sidebar başlangıçta tamamen gizlenecek, görünmemesi için left -250px yapıyoruz */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -250px;  /* Menüyü başta görünmez yapıyoruz */
-  width: 250px;
-  height: 100%;
-  background-color: #ff0000;
-  color: white;
-  padding: 20px;
-  transition: left 0.3s ease;
-  z-index: 1000;
-}
-
-/* Sidebar açıldığında soldan sıfırlanacak ve görünür olacak */
-.sidebar.open {
-  left: 0;
-}
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -250px;
-  width: 250px;
-  height: 100%;
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  transition: left 0.3s ease;
-  z-index: 1000;
-  display: none; /* Başlangıçta gizle */
-}
-
-.sidebar.open {
-  left: 0;
-  display: block; /* Menü açıldığında göster */
-}

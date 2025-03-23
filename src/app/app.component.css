@@ -1,0 +1,101 @@
+/* Header ve butonların düzeni */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff5900;
+  color: white;
+  padding: 15px 20px;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.menu-btn:hover {
+  color: #f98f31;
+}
+
+.menu-icon {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.menu-icon::before, .menu-icon::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  left: 0;
+}
+
+.menu-icon::before {
+  top: -8px;
+}
+
+.menu-icon::after {
+  top: 8px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  display: none; /* Başlangıçta gizle */
+}
+
+.sidebar.open {
+  left: 0;
+  display: block; /* Menü açıldığında göster */
+}
+
+.sidebar .close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 20px 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+  color: #f98f31;
+}

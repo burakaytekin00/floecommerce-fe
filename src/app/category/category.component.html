@@ -1,0 +1,22 @@
+<!-- Sağ Üstte Kategori Ekle Butonu -->
+<div class="card">
+    <button type="button" class="btn btn-success position-absolute top-0 end-0 m-3" (click)="showDialog()">
+        <i class="pi pi-plus"></i> Kategori Ekle
+    </button>
+</div>
+
+<!-- Modal (p-dialog) -->
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" [closable]="true" header="Kategori Ekle">
+    <div class="form-group">
+        <label for="categoryName">Kategori Adı</label>
+        <input type="text" id="categoryName"  class="form-control" placeholder="Kategori adını girin" />
+    </div>
+    <div class="form-group">
+        <label for="categoryDescription">Kategori Açıklaması</label>
+        <textarea id="categoryDescription"  class="form-control" placeholder="Kategori açıklamasını girin"></textarea>
+    </div>
+    <ng-template #footer>
+        <button type="button" class="btn btn-secondary" (click)="visible = false">Kapat</button>
+        <button type="button" class="btn btn-primary" >Kaydet</button>
+    </ng-template>
+</p-dialog>

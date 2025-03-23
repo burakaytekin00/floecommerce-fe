@@ -1,22 +1,4 @@
 <div class="home-container">
-  <!-- Header -->
-  <div class="header">
-    <button class="menu-btn" (click)="toggleSidebar()">
-      <span class="menu-icon"></span>
-    </button>
-    <h1 class="flo-text">𝐅𝐋𝐎</h1>
-  </div>
-
-  <!-- Sidebar (Başlangıçta gizli) -->
-  <div class="sidebar" [class.open]="isSidebarOpen">
-    <button class="close-btn" (click)="toggleSidebar()">X</button>
-    <ul>
-      <li><a href="#" (click)="goToPage(1)">Ana Sayfa</a></li>
-      <li><a href="#">Ayarlar</a></li>
-      <li><a href="#" (click)="logout()">Çıkış Yap</a></li>
-    </ul>
-  </div>
-
   <!-- Ürünler -->
   <div class="products">
     <div class="product" *ngFor="let product of paginatedProducts">
@@ -30,8 +12,6 @@
 
   <!-- Sayfalama -->
   <div class="pagination">
-    <button *ngFor="let page of pages" [class.active]="page === currentPage" (click)="goToPage(page)">
-      {{ page }}
-    </button>
+    <!-- Sayfalama butonları kaldırıldı -->
   </div>
 </div>

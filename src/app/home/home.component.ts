@@ -28,7 +28,7 @@ export class HomeComponent {
 
   itemsPerPage = 8;
   currentPage = 1;
-
+  
   constructor(private router: Router) {}
 
   get pages() {
@@ -42,16 +42,7 @@ export class HomeComponent {
     return this.products.slice(startIndex, endIndex);
   }
 
-  goToPage(page: number) {
-    this.currentPage = page;
-  }
-
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;  // Sidebar açma/kapama fonksiyonu
-  }
-
-  logout() {
-    console.log('Çıkış yapılıyor...');
-    this.router.navigate(['/login']); // Login sayfasına yönlendiriyoruz
   }
 }
