@@ -1,0 +1,58 @@
+<p-toast></p-toast>
+
+<div class="row mt-2">
+    <div class="col-12 d-flex justify-content-end">
+        <button type="button" class="btn btn-success col-1" (click)="showDialog()">
+            <i class="pi pi-plus"></i> Ürün Ekle
+        </button>
+    </div>
+</div>
+
+<div class="card mt-2">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>CategoryName</th>
+                <th>Description</th>
+                <th>PhotoUrl</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.categoryName }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.photoUrl }}</td>
+                <td>{{ product.price }}</td>
+                <td>
+                    <button type="button" class="btn btn-link" (click)="editProduct(product)">
+                        <i class="pi pi-pencil"></i> Düzenle
+                    </button>
+                    <button type="button" class="btn btn-link text-danger" (click)="confirmDelete(product)">
+                        <i class="pi pi-trash"></i> Sil
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" [closable]="true" header="Ürün Düzenle">
+    <div class="form-group">
+        <label for="categoryName">Ürün Adı</label>
+        <input type="text" id="categoryName" class="form-control" [(ngModel)]="categoryName" />
+    </div>
+    <div class="form-group">
+        <label for="categoryDescription">Ürün Açıklaması</label>
+        <textarea id="categoryDescription" class="form-control" [(ngModel)]="categoryDescription"></textarea>
+    </div>
+    <ng-template pTemplate="footer">
+        <button type="button" class="btn btn-secondary" (click)="visible = false">Kapat</button>
+        <button type="button" class="btn btn-primary" (click)="selectedProduct ? updateCategory() : saveProduct()">Kaydet</button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog header="Onay" icon="pi pi-exclamation-triangle" acceptLabel="Evet" rejectLabel="Hayır"></p-confirmDialog>
