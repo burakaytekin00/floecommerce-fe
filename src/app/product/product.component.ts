@@ -13,8 +13,11 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 export class ProductComponent {
   
   visible: boolean = false;
-  categoryName: string = '';
-  categoryDescription: string = '';
+  name: string = '';
+  categoryId!: number;
+  description: string = '';
+  photoUrl: string = '';
+  price!: number;
   products!: any[];
   categories!: any[];
   selectedProduct: any = null;
@@ -59,24 +62,33 @@ export class ProductComponent {
   showDialog() {
     this.visible = true;
     this.selectedProduct = null;
-    this.categoryName = '';
-    this.categoryDescription = '';
+    this.name = '';
+    this.categoryId = 0;
+    this.description = '';
+    this.photoUrl = '';
+    this.price = 0;
   }
 
   editProduct(product: any) {
     this.selectedProduct = product;
-    this.categoryName = product.name;
-    this.categoryDescription = product.description;
+    this.name = product.name;
+    this.categoryId = product.categoryId;
+    this.description = product.description;
+    this.photoUrl = product.photoUrl;
+    this.price = product.price;
     this.visible = true;
   }
 
   saveProduct() {
-    const categoryData = {
-      name: this.categoryName,
-      description: this.categoryDescription
+    const productData = {
+      name: this.name,
+      categoryId: this.categoryId,
+      description: this.description,
+      photoUrl: this.photoUrl,
+      price: this.price
     };
 
-    this.http.post(`${environment.apiUrl}/product`, categoryData).subscribe(
+    this.http.post(`${environment.apiUrl}/Product`, productData).subscribe(
       (response: any) => {
         if (response.isSuccess) {
           this.visible = false;
@@ -96,11 +108,14 @@ export class ProductComponent {
 
     const updatedData = {
       id: this.selectedProduct.id,
-      name: this.categoryName,
-      description: this.categoryDescription
+      name: this.name,
+      categoryId: this.categoryId,
+      description: this.description,
+      photoUrl: this.photoUrl,
+      price: this.price
     };
 
-    this.http.post(`${environment.apiUrl}/category/update`, updatedData).subscribe(
+    this.http.post(`${environment.apiUrl}/product/update`, updatedData).subscribe(
       (response: any) => {
         if (response.isSuccess) {
           this.visible = false;
