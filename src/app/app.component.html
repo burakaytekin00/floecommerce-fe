@@ -3,14 +3,13 @@
   <button class="menu-btn" (click)="toggleSidebar()">
     <span class="menu-icon"></span>
   </button>
-  <h1 class="flo-text">𝐅𝐋𝐎</h1>
+  <h1 class="moon-text">𝐌𝐎𝐎𝐍</h1>
 </div>
 
 <div class="sidebar" [class.open]="isSidebarOpen">
   <button class="close-btn" (click)="toggleSidebar()">X</button>
   <ul>
     <li><a href="/home">Ana Sayfa</a></li>
-    <li><a href="#">Ayarlar</a></li>
     <li><a href="/category">Kategori</a></li>
     <li><a href="/product">Ürün</a></li>
     <li><a href="#" (click)="logout()">Çıkış Yap</a></li>

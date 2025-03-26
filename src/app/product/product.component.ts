@@ -33,7 +33,10 @@ export class ProductComponent {
     this.http.get(`${environment.apiUrl}/product/GetAll`).subscribe(
       (response: any) => {
         if (response.isSuccess) {
-          this.products = response.data;
+          this.products = response.data.map((product: any) => ({
+            ...product,
+            image: `../assets/images/${product.photoUrl}`
+          }));
         } else {
           this.messageService.add({ severity: 'error', summary: 'Hata', detail: response.message || 'Ürün verisi alınamadı', life: 5000 });
         }
@@ -43,6 +46,8 @@ export class ProductComponent {
       }
     );
   }
+  
+  
 
   getCategories() {
     this.http.get(`${environment.apiUrl}/category/GetAll`).subscribe(
@@ -74,7 +79,7 @@ export class ProductComponent {
     this.name = product.name;
     this.categoryId = product.categoryId;
     this.description = product.description;
-    this.photoUrl = product.photoUrl;
+    this.photoUrl = product.image;
     this.price = product.price;
     this.visible = true;
   }
@@ -134,13 +139,13 @@ export class ProductComponent {
     this.confirmationService.confirm({
       message: 'Silmek istediğinizden emin misiniz?',
       accept: () => {
-        this.deleteCategory(product.id);
+        this.deleteProduct(product.id);
       }
     });
   }
 
-  deleteCategory(id: number) {
-    this.http.post(`${environment.apiUrl}/category/delete?id=${id}`,{}).subscribe(
+  deleteProduct(id: number) {
+    this.http.post(`${environment.apiUrl}/product/delete?id=${id}`,{}).subscribe(
       (response: any) => {
         if (response.isSuccess) {
           this.messageService.add({severity:'success', summary: 'Başarılı', detail: 'Ürün başarıyla silindi', life: 5000});

@@ -1,68 +1,82 @@
 <p-toast></p-toast>
 
-<div class="row mt-2">
-    <div class="col-12 d-flex justify-content-end">
-        <button type="button" class="btn btn-success col-1" (click)="showDialog()">
-            <i class="pi pi-plus"></i> Ürün Ekle
-        </button>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <button type="button" class="btn btn-success d-flex align-items-center gap-2" (click)="showDialog()">
+                <i class="pi pi-plus"></i> Ürün Ekle
+            </button>
+        </div>
+    </div>
+
+    <div class="card mt-3 p-3 shadow-sm">
+        <p-table [value]="products" class="table-striped table-hover" [tableStyle]="{ 'min-width': '60rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 20%;">Ürün Adı</th>
+                    <th>Kategori</th>
+                    <th>Açıklama</th>
+                    <th>Fotoğraf</th>
+                    <th>Fiyat</th>
+                    <th style="width: 20%;" class="text-center">İşlemler</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.categoryName }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>
+                        <img [src]="product.image" alt="Ürün Resmi" class="img-thumbnail" style="width: 80px; height: 80px;">
+                    </td>
+                    <td>{{ product.price | currency:'TRY':'symbol' }}</td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="editProduct(product)">
+                                <i class="pi pi-pencil"></i> Düzenle
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="confirmDelete(product)">
+                                <i class="pi pi-trash"></i> Sil
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 </div>
 
-<div class="card mt-2">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Name</th>
-                <th>CategoryName</th>
-                <th>Description</th>
-                <th>PhotoUrl</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>{{ product.name }}</td>
-                <td>{{ product.categoryName }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.photoUrl }}</td>
-                <td>{{ product.price }}</td>
-                <td>
-                    <button type="button" class="btn btn-link" (click)="editProduct(product)">
-                        <i class="pi pi-pencil"></i> Düzenle
-                    </button>
-                    <button type="button" class="btn btn-link text-danger" (click)="confirmDelete(product)">
-                        <i class="pi pi-trash"></i> Sil
-                    </button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
-
-<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" [closable]="true" header="Ürün Ekle Ve Düzenle">
-    <div class="form-group">
-        <label for="name">Ürün Adı</label>
-        <input type="text" id="name" class="form-control" [(ngModel)]="name" />
-    </div>
-    <div class="form-group">
-        <p-dropdown [options]="categories" [(ngModel)]="categoryId" optionLabel="name" optionValue="id" placeholder="Kategori Seçin"></p-dropdown>
-    </div>
-    <div class="form-group">
-        <label for="description">Ürün Açıklaması</label>
-        <textarea id="description" class="form-control" [(ngModel)]="description"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="photoUrl">PhotoUrl</label>
-        <textarea id="photoUrl" class="form-control" [(ngModel)]="photoUrl"></textarea>
-    </div>
-    <div class="form-group">
-        <label for="price">Fiyat</label>
-        <input type="number" id="price" class="form-control" [(ngModel)]="price" />
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '30rem' }" [closable]="true" header="Ürün Ekle / Düzenle">
+    <div class="p-fluid">
+        <div class="form-group mb-3">
+            <label for="name">Ürün Adı</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="name" placeholder="Ürün adını girin..." />
+        </div>
+        <div class="form-group mb-3">
+            <label for="category">Kategori Seç</label>
+            <p-dropdown [options]="categories" [(ngModel)]="categoryId" optionLabel="name" optionValue="id" placeholder="Kategori Seçin"></p-dropdown>
+        </div>
+        <div class="form-group mb-3">
+            <label for="description">Ürün Açıklaması</label>
+            <textarea id="description" class="form-control" rows="3" [(ngModel)]="description" placeholder="Ürün açıklaması girin..."></textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="photoUrl">Ürün Fotoğrafı</label>
+            <input type="text" id="photoUrl" class="form-control" [(ngModel)]="photoUrl" placeholder="Fotoğraf URL'si girin..." />
+            <div *ngIf="photoUrl">
+                <img [src]="photoUrl" alt="Ürün Resmi" class="img-thumbnail mt-2" style="width: 100px; height: 100px;">
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="price">Fiyat</label>
+            <input type="number" id="price" class="form-control" [(ngModel)]="price" placeholder="Fiyat girin..." />
+        </div>
     </div>
     <ng-template pTemplate="footer">
-        <button type="button" class="btn btn-secondary" (click)="visible = false">Kapat</button>
-        <button type="button" class="btn btn-primary" (click)="selectedProduct ? updateCategory() : saveProduct()">Kaydet</button>
+        <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" (click)="visible = false">İptal</button>
+            <button type="button" class="btn btn-primary" (click)="selectedProduct ? updateCategory() : saveProduct()">Kaydet</button>
+        </div>
     </ng-template>
 </p-dialog>
 

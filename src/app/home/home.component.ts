@@ -29,7 +29,7 @@ export class HomeComponent {
         if (response.isSuccess) {
           this.products = response.data.map((product: any) => ({
             ...product,
-            image: `assets/images/${product.photoUrl}`
+            image: `../assets/images/${product.photoUrl}`
           }));
         } else {
           console.error('Ürün verisi alınamadı', response.message);
