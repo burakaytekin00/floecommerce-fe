@@ -3,56 +3,102 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';  // PrimeNG Dropdown importu
+import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';  // ChangeDetectionRef importu
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  imports: [CommonModule, DialogModule, DropdownModule, FormsModule],  // PrimeNG DropdownModule eklendi
 })
 export class HomeComponent {
-  isSidebarOpen: boolean = false;
+  isSidebarOpen = false;
   products: any[] = [];
   itemsPerPage = 8;
   currentPage = 1;
-  
-  constructor(private router: Router, private http: HttpClient) {}
+
+  displayDialog: boolean = false;
+  selectedProduct: any = null;
+  categories: any[] = [];  
+  selectedCategory: any = null;  
+
+  constructor(private router: Router, private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getCategories();  
+    this.getProducts(); 
   }
 
-  getProducts() {
-    this.http.get(`${environment.apiUrl}/product/GetAll`).subscribe(
-      (response: any) => {
+  showProductDetails(product: any): void {
+    this.selectedProduct = product;
+    this.displayDialog = true;
+  }
+
+  
+  getProducts(categoryId?: any): void {
+    let apiUrl = `${environment.apiUrl}/product/GetAll`;
+
+    
+    if (categoryId) {
+      apiUrl = `${environment.apiUrl}/product/GetAllByFilter?categoryId=${categoryId}`;
+    }
+
+    this.http.get<any>(apiUrl).subscribe(
+      response => {
         if (response.isSuccess) {
           this.products = response.data.map((product: any) => ({
             ...product,
-            image: `../assets/images/${product.photoUrl}`
+            image: `../assets/images/${product.photoUrl}`,
           }));
+          this.cdr.detectChanges();  
         } else {
-          console.error('Ürün verisi alınamadı', response.message);
+          console.error('Ürün verisi alınamadı:', response.message);
         }
       },
-      error => {
-        console.error('Ürün verisi alma hatası', error);
-      }
+      error => console.error('Ürün verisi alma hatası:', error)
     );
   }
 
-  get pages() {
-    const totalPages = Math.ceil(this.products.length / this.itemsPerPage);
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  
+  getCategories(): void {
+    this.http.get<any>(`${environment.apiUrl}/category/GetAll`).subscribe(
+      response => {
+        if (response.isSuccess) {
+          this.categories = response.data;
+        } else {
+          console.error('Kategori verisi alınamadı:', response.message);
+        }
+      },
+      error => console.error('Kategori verisi alma hatası:', error)
+    );
   }
 
-  get paginatedProducts() {
+  onCategoryChange(categoryId: any) {
+    console.log('Seçilen Kategori ID:', categoryId);
+  
+    if (categoryId) {
+      this.getProducts(categoryId)
+      
+    }
+  }  
+
+
+  
+  get pages(): number[] {
+    return Array.from({ length: Math.ceil(this.products.length / this.itemsPerPage) }, (_, i) => i + 1);
+  }
+
+  // Sayfalama için ürünleri getiren getter
+  get paginatedProducts(): any[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.products.slice(startIndex, endIndex);
+    return this.products.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;  // Sidebar açma/kapama fonksiyonu
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }
