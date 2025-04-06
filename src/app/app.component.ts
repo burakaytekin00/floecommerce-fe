@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent {
   isSidebarOpen = false;
   title = 'ecommerce-app';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -25,6 +26,7 @@ export class AppComponent {
 
   logout() {
     // Kullanıcıyı oturumdan çıkarmak için gerekli işlemleri buraya ekleyin
+    this.authService.logout();
     console.log('Kullanıcı oturumdan çıkış yaptı.');
   }
 }

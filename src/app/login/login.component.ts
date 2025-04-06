@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // HttpClient'i import edin
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 
@@ -17,7 +18,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
 
   onLogin() {
@@ -27,7 +28,7 @@ export class LoginComponent {
       .subscribe(
         (response: any) => {
           if (response.isSuccess) {
-        
+            this.authService.login();
             this.router.navigate(['/home']);
           } else {
             
