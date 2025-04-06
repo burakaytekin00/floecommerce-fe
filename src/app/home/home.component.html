@@ -1,18 +1,33 @@
 <div class="home-container">
-  <!-- Kategori Seçimi -->
-  <div class="category-dropdown-container">
-    <p-dropdown 
-  [options]="categories" 
-  [(ngModel)]="selectedCategory" 
-  optionLabel="name" 
-  optionValue="id" 
-  placeholder="Kategori Seçin" 
-  (onChange)="onCategoryChange($event.value)"
-  [styleClass]="'category-dropdown'">
-</p-dropdown>
-
-
-  
+  <!-- Arama ve Filtreleme Bölümü -->
+  <div class="search-container mb-4">
+    <div class="row">
+      <div class="col-md-5">
+        <p-dropdown 
+          [options]="categories" 
+          [(ngModel)]="selectedCategory" 
+          optionLabel="name" 
+          optionValue="id" 
+          placeholder="Kategori Seçin"
+          [showClear]="true"
+          [styleClass]="'w-100'">
+        </p-dropdown>
+      </div>
+      <div class="col-md-5">
+        <input 
+          type="text" 
+          class="form-control" 
+          [(ngModel)]="searchText" 
+          placeholder="Ürün Ara...">
+      </div>
+      <div class="col-md-2">
+        <button 
+          class="btn btn-primary w-100" 
+          (click)="searchProducts()">
+          <i class="pi pi-search"></i> Ara
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Ürünler -->

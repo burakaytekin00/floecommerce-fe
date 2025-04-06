@@ -8,6 +8,12 @@ import { DropdownModule } from 'primeng/dropdown';  // PrimeNG Dropdown importu
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';  // ChangeDetectionRef importu
 
+// Interface tanımı (dosyanın üst kısmına ekleyin)
+interface SearchModel {
+  CategoryId: number | null;
+  SearchText: string | null;
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -25,6 +31,7 @@ export class HomeComponent {
   selectedProduct: any = null;
   categories: any[] = [];  
   selectedCategory: any = null;  
+  searchText: string = ''; // Arama metni için yeni değişken
 
   constructor(private router: Router, private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
@@ -86,6 +93,28 @@ export class HomeComponent {
     }
   }  
 
+  // Arama butonuna tıklandığında çağrılacak yeni metod
+  searchProducts(): void {
+    const searchModel: SearchModel = {
+      CategoryId: this.selectedCategory,
+      SearchText: this.searchText
+    };
+
+    this.http.post<any>(`${environment.apiUrl}/product/GetAllByFilter`, searchModel).subscribe(
+      response => {
+        if (response.isSuccess) {
+          this.products = response.data.map((product: any) => ({
+            ...product,
+            image: `../assets/images/${product.photoUrl}`,
+          }));
+          this.cdr.detectChanges();
+        } else {
+          console.error('Ürün verisi alınamadı:', response.message);
+        }
+      },
+      error => console.error('Ürün verisi alma hatası:', error)
+    );
+  }
 
   
   get pages(): number[] {

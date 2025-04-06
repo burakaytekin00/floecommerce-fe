@@ -270,3 +270,22 @@
 }
 
 }
+
+.search-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.search-container .row {
+    align-items: center;
+}
+
+.search-container .form-control {
+    height: 40px;
+}
+
+.search-container .btn {
+    height: 40px;
+}
